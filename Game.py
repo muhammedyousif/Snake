@@ -1,23 +1,27 @@
 import pygame
 import sys
 import random
-
+from Food import Food
+from Snake import Snake
 
 
 class Game:
-    def __init__(self,width,height):
-        self.width = width
-        self.height = height
-        screen = pygame.display.set_mode((width,height))
+    def __init__(self,cell_size,cell_number):
+        self.cell_size = cell_size
+        self.cell_number = cell_number
+        screen = pygame.display.set_mode((cell_number*cell_size,cell_number*cell_size))
         clock =pygame.time.Clock()
-        surface1 =self.surface(width,height)
         pygame.init()
+        food=Food(cell_number)
+        snake = Snake()
         while True:
             for event in pygame.event.get():
                 if event.type==pygame.QUIT:
                     pygame.quit()
                     sys.exit()
-            screen.blit(surface1,(200,250))
+            screen.fill(pygame.Color('dark green '))
+            snake.draw_snake(cell_size,screen)
+            food.draw_fruit(cell_size,screen)
             pygame.display.update()
             clock.tick(60)
 
